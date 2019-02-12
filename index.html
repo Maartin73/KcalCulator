@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>KcalCulator</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+  <style>
+        p    {font-size:160%;}
+    </style>
+</head>
+<body>
+
+<div class="container"> 
+    <nav class="navbar navbar-light bg-light">
+            <h1>KcalCulator</h1>
+    </nav>
+    <div class="progress">
+            <div id="progressUp"class="progress-bar" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+</div>
+
+
+<div class="container"> 
+  <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <div class="item active">
+            <div>
+                    <form>
+                        <h3>Gènero</h3>
+                        <div id="genero">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="hombre" name="customRadio" class="custom-control-input">
+                                <label class="custom-control-label" for="hombre">Hombre</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="mujer" name="customRadio" class="custom-control-input">
+                                <label class="custom-control-label" for="mujer">Mujer</label>
+                            </div>
+                        </div>
+                        
+                        <h3>Edad <small class="text-muted">en años</small></h3>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="edad">
+                        </div>
+        
+                        <h3>Estatura <small class="text-muted">en centìmetros</small></h3>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="estatura">
+                        </div>
+                        <h3>Peso <small class="text-muted">en kilogramos</small></h3>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="peso">
+                        </div>
+                        <h3>Nivel de actividad <small class="text-muted">en veces por semana</small></h3>
+                        <div id="actividad">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio1" name="btactividad" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio1">Sendatario</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio2" name="btactividad" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio2">Suave (1-3 dias/semana)</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio3" name="btactividad" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio3">Moderada (3-5 dias/semana)</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio4" name="btactividad" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio4">Diaria</label>
+                                </div>
+                            </div>
+                        <h3>Porcentage de grasa corporal <small class="text-muted">entre el 0 y el 100</small></h3>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="grasa">
+                        </div>
+                    </form>
+                    <p id="demo"></p>
+                    <!--<a href="pas2.html"><button onclick="calcular()" type="button" class="btn btn-secondary btn-lg">Calcular</button></a>-->
+                    <a class="button" href="#myCarousel" data-slide="next">
+                        <button onclick="calcular1()" type="button" class="btn btn-secondary btn-lg">Calcular</button>
+                        <span class="sr-only">Next</span>
+                    </a>       
+            </div>
+      </div>
+
+      <div class="item">
+            <div>
+                <div class = "container-fluid" style="background: #e6f3ff; border-radius: 22px;">
+                    <h2>Hasta el momento...</h2>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <h3 class="text-center">BMR <small class="text-muted">Tasa de metabolismo basal</small></h3>
+                            <div>
+                                    <p class="text-center" id="bmr"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <h3 class="text-center">TDEE <small class="text-muted">Gasto diario de energía</small></h3>
+                            <div>
+                                <p class="text-center" id="tdee"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>      
+            </div>            
+            <div>
+                <h2>Sigamos!</h2>
+                <h3>Objetivo <small class="text-muted">calorias a perder diariamente</small></h3>
+                <div class="custom-control custom-radio">
+                    <input onclick="mostrarPerderPeso()" type="radio" id="perderPeso" name="btobjetivo" class="custom-control-input">
+                    <label class="custom-control-label" for="perderPeso">Perder peso</label>
+                </div>
+                <div id="divPerderPeso" class="container" style="display:none">
+                    <input type="radio" id="perderPeso10" name="btobjetivo" class="custom-control-input">
+                    <label class="custom-control-label" for="perderPeso">10%</label>
+                    <input type="radio" id="perderPeso15" name="btobjetivo" class="custom-control-input">
+                    <label class="custom-control-label" for="perderPeso">15%</label>
+                    <input type="radio" id="perderPeso20" name="btobjetivo" class="custom-control-input">
+                    <label class="custom-control-label" for="perderPeso">20%</label>
+                    <input type="radio" id="perderPeso25" name="btobjetivo" class="custom-control-input">
+                    <label class="custom-control-label" for="perderPeso">25%</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input onclick="mostrarMantenimiento()" type="radio" id="mantenimiento" name="btobjetivo" class="custom-control-input">
+                    <label class="custom-control-label" for="mantenimiento">Mantenimiento</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input onclick="mostrarGanarPeso()" type="radio" id="ganarPeso" name="btobjetivo" class="custom-control-input">
+                    <label class="custom-control-label" for="ganarPeso">Ganar masa muscular</label>
+                </div>
+                <div id="divGanarPeso" class="container" style="display:none">
+                    <input type="radio" id="ganarPeso10" name="btobjetivo" class="custom-control-input">
+                    <label class="custom-control-label" for="ganarPeso">10%</label>
+                    <input type="radio" id="ganarPeso15" name="btobjetivo" class="custom-control-input">
+                    <label class="custom-control-label" for="ganarPeso">15%</label>
+                    <input type="radio" id="ganarPeso20" name="btobjetivo" class="custom-control-input">
+                    <label class="custom-control-label" for="ganarPeso">20%</label>
+                    <input type="radio" id="ganarPeso25" name="btobjetivo" class="custom-control-input">
+                    <label class="custom-control-label" for="ganarPeso">25%</label>
+                </div>
+                <h3>Cantidades <small class="text-muted">en gramos</small></h3>
+                <h4>Proteinas</h4>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <input type="email" class="form-control" id="proteinas">
+                    </div>
+                    <div  class="col-md-6 mb-3">
+                        <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="right" data-content="Proteinas por kg y dia: - Resistencia: 1.2-1.5g">
+                            Ayuda
+                        </button>
+                    </div>
+                </div>
+                <h4>Grasas</h4>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <input type="email" class="form-control" id="grasas">
+                    </div>
+                    <div  class="col-md-6 mb-3">
+                        <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="right" data-content="Proteinas por kg y dia: - Resistencia: 1.2-1.5g">
+                            Ayuda
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div style = "margin-top: 60px">  
+                <a onclick="move1back()"class="button" href="#myCarousel" data-slide="prev" style="margin-right:20px">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a onclick="calcular2()" class="button" href="#myCarousel" data-slide="next">
+                      <button type="button" class="btn btn-secondary btn-lg">Calcular</button>
+                      <span class="sr-only">Next</span>
+                </a>           
+            </div>
+      </div>
+    
+      <div class="item">
+            <div class="container">
+                    <h2>Resultados!</h2>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3" style="background: #e6f3ff; border-radius: 22px;">
+                            <h3 class="text-center">Consumo de calorias</h3>
+                            <div>
+                                    <p class="text-center" id="calbase"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3" style="background: #e6f3ff; border-radius: 22px; ">
+                            <h3 class="text-center">Calorias a ingerir</h3>
+                            <div>
+                                <p class="text-center" id="caling"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="form-row" >
+                        <div class="col-md-6 mb-3" >
+                            <h3 class="text-center">Proteinas</h3>
+                            <div>
+                                    <p class="text-center" id="calprotes"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <h3 class="text-center">Grasas</h3>
+                            <div>
+                                <p class="text-center" id="calgrases"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                                <h3 class="text-center">Hidratos</h3>
+                                <div>
+                                    <p class="text-center" id="calhidrats"></p>
+                                </div>
+                            </div>
+                    </div>
+                    <a onclick="move2back()" class="button" href="#myCarousel" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script type="text/javascript">
+    function calcular1(){
+        move1();
+        edad = document.getElementById('edad').value;
+        estatura = document.getElementById('estatura').value;
+        peso = document.getElementById('peso').value;
+        if (document.getElementById('customRadio1').checked) {
+            actividad = 1.2;
+        }
+        else if (document.getElementById('customRadio2').checked) {
+            actividad = 1.375;
+        }
+        else if (document.getElementById('customRadio3').checked) {
+            actividad = 1.55;
+        }
+        else if (document.getElementById('customRadio4').checked) {
+            actividad = 1.725;
+        }
+        grasa = document.getElementById('grasa').value;
+
+        if (document.getElementById('hombre').checked) {
+            res= 10*peso+6.25*estatura-5*edad+5;
+        }
+        else if (document.getElementById('mujer').checked) {
+            res= 10*peso+6.25*estatura-5*edad-161;
+        }
+        document.getElementById("bmr").innerHTML = res + " kcal";
+        document.getElementById("tdee").innerHTML = res*actividad + " kcal";
+    }
+
+    function calcular2(){
+        move2();
+        if (document.getElementById('perderPeso10').checked) {
+            objetivo = -0.10;
+        }
+        else if (document.getElementById('perderPeso15').checked) {
+            objetivo = -0.15;
+        }
+        else if (document.getElementById('perderPeso20').checked) {
+            objetivo = -0.20;
+        }
+        else if (document.getElementById('perderPeso25').checked) {
+            objetivo = -0.25;
+        }
+        else if (document.getElementById('mantenimiento').checked) {
+            objetivo = 0;
+        }
+        else if (document.getElementById('ganarPeso10').checked) {
+            objetivo = 0.10;
+        }
+        else if (document.getElementById('ganarPeso15').checked) {
+            objetivo = 0.15;
+        }
+        else if (document.getElementById('ganarPeso20').checked) {
+            objetivo = 0.20;
+        }
+        else if (document.getElementById('ganarPeso25').checked) {
+            objetivo = 0.25;
+        }
+        grasas = document.getElementById('grasas').value;
+        proteinas = document.getElementById('proteinas').value;
+        calbase = document.getElementById('tdee').innerHTML;
+
+        calbase=parseInt(calbase);
+        document.getElementById("calbase").innerHTML = calbase + " kcal";
+        res=calbase + calbase*objetivo;
+        document.getElementById("caling").innerHTML = res + " kcal";
+
+        document.getElementById("calprotes").innerHTML = parseFloat(proteinas)*4.0 + " kcal";
+        document.getElementById("calgrases").innerHTML = parseFloat(grasas)*9.0 + " kcal";
+        hidrats = parseFloat(res)-parseFloat(proteinas)-parseFloat(grasas);
+        document.getElementById("calhidrats").innerHTML = hidrats*9 + " kcal";
+    }
+
+    function mostrarPerderPeso(){
+        document.getElementById("divPerderPeso").style.display = "block";
+        document.getElementById("divGanarPeso").style.display = "none";
+    }
+    function mostrarGanarPeso(){
+        document.getElementById("divGanarPeso").style.display = "block";
+        document.getElementById("divPerderPeso").style.display = "none";
+    }
+    function mostrarMantenimiento(){
+        document.getElementById("divGanarPeso").style.display = "none";
+        document.getElementById("divPerderPeso").style.display = "none";
+    }
+
+    function move1() {
+        var elem = document.getElementById("progressUp"); 
+        var width = 33;
+        var id = setInterval(frame, 10);
+        function frame() {
+            if (width >= 66) {
+                clearInterval(id);
+            } 
+            else {
+                width++; 
+                elem.style.width = width + '%'; 
+            }
+        }
+    }
+    function move2() {
+        var elem = document.getElementById("progressUp"); 
+        var width = 66;
+        var id = setInterval(frame, 10);
+        function frame() {
+            if (width >= 100) {
+                clearInterval(id);
+            } 
+            else {
+                width++; 
+                elem.style.width = width + '%'; 
+            }
+        }
+    }
+    function move1back() {
+        var elem = document.getElementById("progressUp"); 
+        var width = 66;
+        var id = setInterval(frame, 10);
+        function frame() {
+            if (width <= 33) {
+                clearInterval(id);
+            } 
+            else {
+                width--; 
+                elem.style.width = width + '%'; 
+            }
+        }
+    }
+    function move2back() {
+        var elem = document.getElementById("progressUp"); 
+        var width = 100;
+        var id = setInterval(frame, 10);
+        function frame() {
+            if (width <= 66) {
+                clearInterval(id);
+            } 
+            else {
+                width--; 
+                elem.style.width = width + '%'; 
+            }
+        }
+    }
+
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    })
+</script>
+</html>
+
